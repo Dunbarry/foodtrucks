@@ -33,8 +33,8 @@ $('.signupForm').submit((event) => {
 
 
 function deleteReview(id) {
-  // window.location.href = "http://localhost:3000/review/delete/"+id;
-  window.location.href = "https://hipfoodtrucks.herokuapp.com/review/delete/"+id;
+  window.location.href = "http://localhost:3000/review/delete/"+id;
+  // window.location.href = "https://hipfoodtrucks.herokuapp.com/review/delete/"+id;
 }
 
 function showForm(aForm) {
@@ -67,8 +67,8 @@ function geoCodeAddress(address){
 }
 
 function loadTruckInfo(id) {
-  $.get('https://hipfoodtrucks.herokuapp.com/api/info/'+id)
-  // $.get('http://localhost:3000/api/info/'+id)
+  // $.get('https://hipfoodtrucks.herokuapp.com/api/info/'+id)
+  $.get('http://localhost:3000/api/info/'+id)
   .then((data) => {
     console.log(data)
     let truck_data = data.data;
