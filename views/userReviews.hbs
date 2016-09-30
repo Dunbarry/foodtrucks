@@ -1,4 +1,7 @@
 <h1 class="titleCenter">whattup, {{user.username}}</h1>
+{{#if isowner}}
+  <a href="/signup/truck"><h3 class="titleCenter">Add New Truck</h3></a>
+{{/if}}
 
 {{#if reviews}}
 <h2 class="titleCenter">here are your reviews</h2>
