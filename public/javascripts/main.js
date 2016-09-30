@@ -33,7 +33,8 @@ $('.signupForm').submit((event) => {
 
 
 function deleteReview(id) {
-  window.location.href = "http://localhost:3000/review/delete/"+id;
+  // window.location.href = "http://localhost:3000/review/delete/"+id;
+  window.location.href = "https://hipfoodtrucks.herokuapp.com/review/delete/"+id;
 }
 
 function showForm(aForm) {
