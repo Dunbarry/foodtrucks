@@ -87,18 +87,19 @@ router.get('/:id', function(req,res,next) {
 })
 
 router.post('/new/signup', function (req, res, next) {
-  console.log("Here!")
   var name=req.user;
   var identOwner=0;
+  var placeHolder=0;
+  var truckName='';
   queries.getOwnerByUsername(name)
   .then(function(owner){
     identOwner=owner[0].id;
-    console.log('ownerIdent is:', identOwner)
     return identOwner
   })
   .then((id) => {
-    return queries.getAllTrucks().insert({
-      //This owner id is just a place holder.
+    truckName=req.body.truck_name;
+    console.log(truckName)
+    queries.getAllTrucks().insert({
       owner_id: id,
       truck_name: req.body.truck_name,
       image_url: req.body.image_url,
@@ -107,8 +108,16 @@ router.post('/new/signup', function (req, res, next) {
     })
   })
   .then(function(){
-    return queries.getAllTruckSchedules().insert({
-      truck_id: identOwner,
+    console.log('The value of truckName is:'+truckName)
+    queries.getTrucksByName(truckName)
+    .then(function(truckReturned){
+      console.log(truckReturned)
+      placeHolder=truckReturned.id;
+    })
+  })
+  .then(function(){
+    queries.getAllTruckSchedules().insert({
+      truck_id: placeHolder,
       date: req.body.dateSunday,
       location: req.body.SundayLocation,
       open_time: req.body.SundayOpen,
@@ -120,7 +129,7 @@ router.post('/new/signup', function (req, res, next) {
   })
   .then(() => {
     queries.getAllTruckSchedules().insert({
-      truck_id: identOwner,
+      truck_id: placeHolder,
       date: req.body.dateMonday,
       location: req.body.MondayLocation,
       open_time: req.body.MondayOpen,
@@ -132,7 +141,7 @@ router.post('/new/signup', function (req, res, next) {
   })
   .then(() => {
     queries.getAllTruckSchedules().insert({
-      truck_id: identOwner,
+      truck_id: placeHolder,
       date: req.body.dateTuesday,
       location: req.body.TuesdayLocation,
       open_time: req.body.TuesdayOpen,
@@ -144,7 +153,7 @@ router.post('/new/signup', function (req, res, next) {
   })
   .then(function(){
     queries.getAllTruckSchedules().insert({
-      truck_id: identOwner,
+      truck_id: placeHolder,
       date: req.body.dateWednesday,
       location: req.body.WednesdayLocation,
       open_time: req.body.WednesdayOpen,
@@ -156,7 +165,7 @@ router.post('/new/signup', function (req, res, next) {
   })
   .then(function(){
     queries.getAllTruckSchedules().insert({
-      truck_id: identOwner,
+      truck_id: placeHolder,
       date: req.body.dateThursday,
       location: req.body.ThursdayLocation,
       open_time: req.body.ThursdayOpen,
@@ -168,7 +177,7 @@ router.post('/new/signup', function (req, res, next) {
   })
   .then(function(){
     queries.getAllTruckSchedules().insert({
-      truck_id: identOwner,
+      truck_id: placeHolder,
       date: req.body.dateFriday,
       location: req.body.FridayLocation,
       open_time: req.body.FridayOpen,
@@ -180,7 +189,7 @@ router.post('/new/signup', function (req, res, next) {
   })
   .then(function(){
     return queries.getAllTruckSchedules().insert({
-      truck_id: identOwner,
+      truck_id: placeHolder,
       date: req.body.dateSaturday,
       location: req.body.SaturdayLocation,
       open_time: req.body.SaturdayOpen,
@@ -190,7 +199,6 @@ router.post('/new/signup', function (req, res, next) {
   .then(function(result){
     console.log(req.body.dateSaturday, req.body.SaturdayLocation, req.body.SaturdayOpen, req.body.SaturdayClose)
     res.redirect('/truck/'+result[0]);
-    // This redirect is just a placeholder.
   })
 });
 
