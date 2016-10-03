@@ -97,8 +97,6 @@ router.post('/new/signup', function (req, res, next) {
     return identOwner
   })
   .then((id) => {
-    truckName=req.body.truck_name;
-    console.log(truckName)
     queries.getAllTrucks().insert({
       owner_id: id,
       truck_name: req.body.truck_name,
@@ -112,7 +110,7 @@ router.post('/new/signup', function (req, res, next) {
     queries.getTrucksByName(truckName)
     .then(function(truckReturned){
       console.log(truckReturned)
-      placeHolder=truckReturned.id;
+      placeHolder=truckReturned[0].id;
     })
   })
   .then(function(){
